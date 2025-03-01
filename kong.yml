@@ -1,0 +1,39 @@
+_format_version: "3.0"
+
+services:
+  - name: is_go_kong
+    url: http://is_go:9999
+    routes:
+      - name: login-route
+        paths:
+          - /login
+        strip_path: false # fuk - don't cut my path
+
+  - name: user-service
+    url: http://user-service:5001
+    routes:
+      - name: user-api
+        paths:
+          - /users
+    plugins:
+      - name: jwt
+        config:
+          issuer: "hh-company" 
+          key_claim_name: "iss" 
+          uri_param_name: "jwt" 
+          secret_is_base64: false 
+          claims_to_verify:
+            - "exp"
+      - name: rate-limiting
+        config:
+          second: 5
+          policy: local
+
+consumers:
+  - username: frontend-client
+
+jwt_secrets:
+  - consumer: frontend-client
+    key: my-jwt-secret
+    algorithm: HS256
+    secret: supersecretkey
