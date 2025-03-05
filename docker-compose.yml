@@ -20,6 +20,8 @@ services:
       KONG_PROXY_ERROR_LOG: /dev/stderr
       KONG_ADMIN_ERROR_LOG: /dev/stderr
       KONG_ADMIN_LISTEN: "0.0.0.0:8001"
+      KONG_SSL_CERT: "/certs/fullchain.pem"
+      KONG_SSL_CERT_KEY: "/certs/privkey.pem"
     volumes:
       - ./kong.yml:/kong/kong.yml  # Mount file cấu hình Kong
     networks:
@@ -39,3 +41,4 @@ services:
 networks:
   kong-net:
     driver: bridge
+    external: true

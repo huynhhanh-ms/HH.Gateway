@@ -9,6 +9,14 @@ services:
           - /login
         strip_path: false # fuk - don't cut my path
 
+  - name: land_service
+    url: http://land_service:9000 
+    routes:
+      - name: land_service_route
+        paths:
+          - /land
+        strip_path: true
+
   - name: user-service
     url: http://user-service:5001
     routes:
