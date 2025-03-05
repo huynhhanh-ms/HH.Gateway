@@ -15,7 +15,7 @@ services:
       - name: land_service_route
         paths:
           - /land
-        strip_path: true
+        strip_path: false
 
   - name: user-service
     url: http://user-service:5001
@@ -26,9 +26,9 @@ services:
     plugins:
       - name: jwt
         config:
-          issuer: "hh-company" 
+          # issuer: "hh-company" 
           key_claim_name: "iss" 
-          uri_param_name: "jwt" 
+          # uri_param_name: "jwt" 
           secret_is_base64: false 
           claims_to_verify:
             - "exp"

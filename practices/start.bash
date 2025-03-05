@@ -1,5 +1,5 @@
 docker run -d --name kong-database `
-  --network=kong-net `
+  --network=kong_net `
   -p 5432:5432 `
   -e "POSTGRES_USER=kong" `
   -e "POSTGRES_DB=kong" `
@@ -7,7 +7,7 @@ docker run -d --name kong-database `
   postgres:13
 
 
-docker run --rm --network=kong-net `
+docker run --rm --network=kong_net `
  -e "KONG_DATABASE=postgres" `
  -e "KONG_PG_HOST=kong-database" `
  -e "KONG_PG_PASSWORD=kongpass" `
@@ -15,7 +15,7 @@ kong:3.9.0 kong migrations bootstrap
 
 
 docker run -d --name kong-gateway `
- --network=kong-net `
+ --network=kong_net `
  -e "KONG_DATABASE=postgres" `
  -e "KONG_PG_HOST=kong-database" `
  -e "KONG_PG_USER=kong" `
@@ -37,4 +37,4 @@ docker kill kong-gateway
 docker kill kong-database
 docker container rm kong-gateway
 docker container rm kong-database
-docker network rm kong-net
+docker network rm kong_net
